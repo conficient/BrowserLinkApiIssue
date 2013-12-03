@@ -1,0 +1,91 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+<script src="~/Scripts/jquery-1.10.2.js"></script>
+<script src="~/Scripts/knockout-3.0.0.js"></script>
+
+<div class="jumbotron">
+    <h1>ASP.NET</h1>
+    <p class="lead">
+        Tests a problem with BrowserLink inserting script elements into Html output contained within a WebAPI JSON result
+    </p>
+</div>
+
+<div class="row">
+    <div class="col-md-4">
+        <h2>To Test:</h2>
+        <p>
+            Run this page with VS2013 with debugging and BrowserLink enabled. Click the button to test.
+        </p>
+        <p><a class="btn btn-default" data-bind="click: LoadComment">Load Comment</a></p>
+    </div>
+    <div class="col-md-4">
+        <h2>Comment:</h2>
+        <p>Name: <span data-bind="text: Name">[not bound]</span></p>
+        <p>Comment: <span data-bind="text: Comment"></span></p>
+    </div>
+    <div class="col-md-4">
+        <h2>Info</h2>
+        <p>This test page demonstrates a problem with the new BrowserLink system for ASP.NET debugging.</p>
+        <p>
+            The Load Comment button makes an Ajax API call to /api/Test/GetObject, which returns an object
+            with two properties: a Name and a Comment, which contains a html response.
+        </p>
+        <p>
+            JSON.NET ensures the correct JSON is generated, but the output is intercepted by the
+            BrowserLink system, which inserts this code into the response, just before the &lt;/body&gt; tag:
+        </p>
+        <pre>
+&lt!-- Visual Studio Browser Link --&gt;
+&lt;script type="application/json" id="__browserLink_initializationData"&gt;
+    {"appName":"(browsername)"}
+&lt;/script&gt;
+&lt;script type="text/javascript" src="http://localhost:(port)/(somelongreference)/browserLink" async="async"&gt;&lt;/script&gt;
+&lt;!-- End Browser Link --&gt;
+</pre>
+        <p>If you turn off BrowserLink and re-run this with debugging, it works.</p>
+    </div>
+
+</div>
+
+<script type="text/javascript">
+
+    // create simple viewmodel to call API
+    var viewModel = function () {
+        var self = this;
+
+        self.Name = ko.observable("[not loaded]");
+        self.Comment = ko.observable("");
+
+        self.LoadComment = function () {
+            var settings = {
+                async: true,
+                data: null,
+                contentType: "application/json; charset=utf-8",
+                type: "GET",
+                timeout: 10 * 1000,
+                url: "/api/Test/GetObject",
+                success: function (data) {
+                    // load the data
+                    self.Name(data.Name);
+                    self.Comment(data.Comment);
+                },
+                error: function (jqxhr, textstatus, errorthrown) {
+                    alert("LOAD ERROR: " + errorthrown);
+                }
+            };
+
+            // make ajax call
+            $.ajax(settings);
+            //alert("Not implemented");
+        }
+    };
+
+    // create and bind viewmodel
+    $(function () {
+        var vm = new viewModel();
+        ko.applyBindings(vm);
+    });
+
+</script>
