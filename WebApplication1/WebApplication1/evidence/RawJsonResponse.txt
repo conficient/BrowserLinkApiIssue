@@ -1,0 +1,21 @@
+HTTP/1.1 200 OK
+Cache-Control: no-cache
+Pragma: no-cache
+Content-Type: application/json; charset=utf-8
+Expires: -1
+Server: Microsoft-IIS/8.0
+X-AspNet-Version: 4.0.30319
+X-SourceFiles: =?UTF-8?B?QzpcVXNlcnNcSG93YXJkXERvY3VtZW50c1xHaXRIdWJcQnJvd3NlckxpbmtBcGlJc3N1ZVxXZWJBcHBsaWNhdGlvbjFcV2ViQXBwbGljYXRpb24xXGFwaVxUZXN0XEdldE9iamVjdA==?=
+X-Powered-By: ASP.NET
+Date: Fri, 06 Dec 2013 09:35:50 GMT
+Content-Length: 406
+
+{"Name":"Some user","Comment":"<html><head></head><body><p>This is a comment</p>
+<!-- Visual Studio Browser Link -->
+<script type="application/json" id="__browserLink_initializationData">
+    {"appName":"Chrome"}
+</script>
+<script type="text/javascript" src="http://localhost:17296/28a7cffe390843d79ff31abc5a76cd1f/browserLink" async="async"></script>
+<!-- End Browser Link -->
+
+</body></html>"}
