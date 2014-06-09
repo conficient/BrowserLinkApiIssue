@@ -19,3 +19,6 @@ BrowserLink interprets any Html content sent in a JSON response as if it were a 
 
 Reported to [Microsoft Connect](https://connect.microsoft.com/VisualStudio/feedback/details/810547/vs2013-rtm-browserlink-inserts-and-corrupts-json-result-in-webapi-containing-html).
 
+** The Connect issue has now been flagged as resolved in Visual Studio 2013 Update 2 **
+
+I have checked this and it does work.
